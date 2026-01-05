@@ -38,7 +38,11 @@ export default function TechnologiesSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring" as const, stiffness: 80, damping: 12 },
+      transition: {
+        type: "spring" as const,
+        stiffness: 80,
+        damping: 12,
+      },
     },
   };
 
@@ -54,14 +58,17 @@ export default function TechnologiesSection() {
           className="text-center mb-24"
         >
           <h2 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6">
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600">Technology Stack</span>
+            Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600">
+              Technology Stack
+            </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             We master industry-leading technologies to deliver scalable, secure, and cutting-edge solutions tailored to your vision.
           </p>
         </motion.div>
 
-        {/* Jabardast Grid */}
+        {/* Technology Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -73,16 +80,19 @@ export default function TechnologiesSection() {
             <motion.div
               key={tech}
               variants={itemVariants}
-              whileHover={{ 
-                y: -8, 
+              whileHover={{
+                y: -8,
                 scale: 1.05,
-                transition: { type: "spring" as const, stiffness: 300 }
+                transition: {
+                  type: "spring" as const,
+                  stiffness: 300,
+                },
               }}
               className="group relative bg-white rounded-2xl py-8 px-6 text-center shadow-md hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 border border-gray-100 hover:border-blue-200"
             >
               {/* Subtle glow on hover */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
+
               <p className="relative z-10 text-lg md:text-xl font-bold text-gray-800 group-hover:text-blue-700 transition-colors duration-300">
                 {tech}
               </p>
@@ -90,7 +100,7 @@ export default function TechnologiesSection() {
           ))}
         </motion.div>
 
-        {/* Premium Footer Note */}
+        {/* Footer Note */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
