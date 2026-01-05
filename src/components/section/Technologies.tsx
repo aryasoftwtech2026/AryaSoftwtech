@@ -2,7 +2,6 @@
 
 import { motion, Variants } from "framer-motion";
 
-
 const technologies = [
   "React.js",
   "Next.js",
@@ -26,7 +25,7 @@ const technologies = [
 ];
 
 export default function TechnologiesSection() {
-  const containerVariants:Variants  = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -34,7 +33,7 @@ export default function TechnologiesSection() {
     },
   };
 
-  const itemVariants:Variants  = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
