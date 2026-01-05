@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";  // Variants import kiya for clarity
 import { X, Home, User, Briefcase, FolderOpen, Mail } from "lucide-react";
 
 import CompanyLogo from "@/public/image/companyLogo.png";
@@ -11,7 +11,6 @@ import CompanyLogo from "@/public/image/companyLogo.png";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Menu items with icons
   const menuItems = [
     { name: "Home", href: "/", icon: Home },
     { name: "About", href: "/about", icon: User },
@@ -20,14 +19,21 @@ export default function Navbar() {
     { name: "Contact", href: "/contact", icon: Mail },
   ];
 
-  const titleVariants = {
+  const titleVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
   };
 
-  const wordVariants = {
+  const wordVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut" as const,  // Fixed here
+      },
+    },
   };
 
   return (
@@ -102,7 +108,7 @@ export default function Navbar() {
                       className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
                       whileHover={{ width: "100%" }}
                       initial={{ width: "0%" }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      transition={{ duration: 0.4, ease: "easeOut" as const }}  // Fixed here too (safe side)
                     />
                   </motion.li>
                 );
@@ -138,7 +144,6 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -147,7 +152,6 @@ export default function Navbar() {
               className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
             />
 
-            {/* Menu Panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
