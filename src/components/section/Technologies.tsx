@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+
 
 const technologies = [
   "React.js",
@@ -25,7 +26,7 @@ const technologies = [
 ];
 
 export default function TechnologiesSection() {
-  const containerVariants = {
+  const containerVariants:Variants  = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -33,12 +34,12 @@ export default function TechnologiesSection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants:Variants  = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 80, damping: 12 },
+      transition: { type: "spring" as const, stiffness: 80, damping: 12 },
     },
   };
 
@@ -76,7 +77,7 @@ export default function TechnologiesSection() {
               whileHover={{ 
                 y: -8, 
                 scale: 1.05,
-                transition: { type: "spring", stiffness: 300 }
+                transition: { type: "spring" as const, stiffness: 300 }
               }}
               className="group relative bg-white rounded-2xl py-8 px-6 text-center shadow-md hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 border border-gray-100 hover:border-blue-200"
             >
