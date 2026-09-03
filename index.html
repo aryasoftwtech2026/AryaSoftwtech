@@ -7,6 +7,10 @@
   <meta name="description" content="Arya Softw Tech - Custom software development, web & mobile apps, cloud solutions and digital transformation." />
   <link rel="icon" type="image/png" href="./favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
   <script>
     tailwind.config = {
       theme: {
@@ -878,9 +882,26 @@
     </div>
   </footer>
 
-  <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-primary-500 to-purple-500 text-white shadow-lg shadow-primary-500/30 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 z-40" aria-label="Back to top">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-  </button>
+  <!-- WhatsApp Floating Button -->
+<a 
+  href="https://wa.me/919755413647?text=Hello%20I%20want%20to%20know%20more" 
+  target="_blank" 
+  aria-label="Chat on WhatsApp" 
+  class="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg transition duration-300 hover:scale-110 hover:bg-green-600"
+> 
+  <i class="fa-brands fa-whatsapp text-3xl"></i> 
+</a>
+
+<!-- Back to Top Button -->
+<button 
+  id="back-to-top" 
+  class="fixed bottom-24 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-primary-500 to-purple-500 text-white shadow-lg shadow-primary-500/30 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 z-40" 
+  aria-label="Back to top"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+  </svg>
+</button>
 
   <script src="script.js"></script>
 </body>
