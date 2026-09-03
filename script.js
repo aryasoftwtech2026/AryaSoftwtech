@@ -114,7 +114,7 @@ const formStatus = document.getElementById('form-status');
 const submitBtn = document.getElementById('submit-btn');
 
 // Google Apps Script URL
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzy8okS1JcDOkbSsEXur2EwIyi608RrqgWxcysWGOsWKKmMmHardZ_aBOMPgSQYh6EmeQ/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzCD3Pc8fOGCm4agU0TjFcpMSutEvR_1t4pr7SHTMAZlBNR5QCGJ4151O64kfeEC-bxjw/exec';
 
 if (contactForm) {
   contactForm.addEventListener('submit', async function (e) {
