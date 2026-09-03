@@ -156,31 +156,35 @@ if (contactForm) {
       message: message
     };
 
-    try {
-      await fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+   try {
+  const formData = new URLSearchParams();
 
-      showFormStatus(
-        'Thank you! Your message has been sent successfully.',
-        'success'
-      );
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('subject', subject);
+  formData.append('message', message);
 
-      contactForm.reset();
+  await fetch(scriptURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: formData
+  });
 
-    } catch (error) {
-      console.error(error);
+  showFormStatus(
+    'Thank you! Your message has been sent successfully.',
+    'success'
+  );
 
-      showFormStatus(
-        'Something went wrong. Please try again.',
-        'error'
-      );
-    }
+  contactForm.reset();
+
+} catch (error) {
+  console.error(error);
+
+  showFormStatus(
+    'Something went wrong. Please try again.',
+    'error'
+  );
+}
 
     // Reset button
     submitBtn.disabled = false;
