@@ -108,71 +108,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Contact Form ----------
-  const contactForm = document.getElementById('contact-form');
-  const formStatus = document.getElementById('form-status');
-  const submitBtn = document.getElementById('submit-btn');
+ // ---------- Contact Form ----------
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+const submitBtn = document.getElementById('submit-btn');
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+// Google Apps Script URL
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzy8okS1JcDOkbSsEXur2EwIyi608RrqgWxcysWGOsWKKmMmHardZ_aBOMPgSQYh6EmeQ/exec';
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const subject = document.getElementById('subject').value.trim();
-      const message = document.getElementById('message').value.trim();
+if (contactForm) {
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-      if (!name || !email || !subject || !message) {
-        showFormStatus('Please fill in all fields.', 'error');
-        return;
-      }
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showFormStatus('Please enter a valid email address.', 'error');
-        return;
-      }
+    // Validation
+    if (!name || !email || !subject || !message) {
+      showFormStatus('Please fill in all fields.', 'error');
+      return;
+    }
 
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        <span>Sending...</span>
-      `;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      setTimeout(() => {
-        const mailto = `mailto:aryasoftwtech@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-          `Name: ${name}\nEmail: ${email}\n\n${message}`
-        )}`;
-        window.location.href = mailto;
+    if (!emailRegex.test(email)) {
+      showFormStatus('Please enter a valid email address.', 'error');
+      return;
+    }
 
-        showFormStatus('Thank you! Your message is ready to send via your email client.', 'success');
-        contactForm.reset();
+    // Disable button
+    submitBtn.disabled = true;
 
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `
-          <span>Send Message</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-          </svg>
-        `;
-      }, 1100);
-    });
-  }
+    submitBtn.innerHTML = `
+      <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Sending...</span>
+    `;
 
-  function showFormStatus(message, type) {
-    if (!formStatus) return;
-    formStatus.textContent = message;
-    formStatus.classList.remove('hidden', 'text-green-400', 'text-red-400');
-    formStatus.classList.add(type === 'success' ? 'text-green-400' : 'text-red-400');
-    formStatus.classList.remove('hidden');
+    const data = {
+      name: name,
+      email: email,
+      subject: subject,
+      message: message
+    };
 
-    setTimeout(() => {
-      formStatus.classList.add('hidden');
-    }, 5000);
-  }
+    try {
+      await fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      showFormStatus(
+        'Thank you! Your message has been sent successfully.',
+        'success'
+      );
+
+      contactForm.reset();
+
+    } catch (error) {
+      console.error(error);
+
+      showFormStatus(
+        'Something went wrong. Please try again.',
+        'error'
+      );
+    }
+
+    // Reset button
+    submitBtn.disabled = false;
+
+    submitBtn.innerHTML = `
+      <span>Send Message</span>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+    `;
+  });
+}
+
+function showFormStatus(message, type) {
+  if (!formStatus) return;
+
+  formStatus.textContent = message;
+
+  formStatus.classList.remove(
+    'hidden',
+    'text-green-400',
+    'text-red-400'
+  );
+
+  formStatus.classList.add(
+    type === 'success'
+      ? 'text-green-400'
+      : 'text-red-400'
+  );
+
+  setTimeout(() => {
+    formStatus.classList.add('hidden');
+  }, 5000);
+}
 
   // ---------- Smooth Reveal on Scroll ----------
   const revealObserver = new IntersectionObserver((entries) => {
